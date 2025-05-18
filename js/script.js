@@ -146,6 +146,14 @@ function openContactModal() {
   contactModal.style.display = 'flex';
   contactModal.removeAttribute('aria-hidden');
   contactModal.inert = false;
+
+  // Set email otomatis & readonly saat modal dibuka
+  const emailInput = contactModal.querySelector('input[type="email"]');
+  if (emailInput) {
+    emailInput.value = 'kelvianov10@gmail.com';
+    emailInput.readOnly = true;
+  }
+
   const firstInput = contactModal.querySelector('input, textarea, button');
   if (firstInput) firstInput.focus();
 }
@@ -187,6 +195,12 @@ if (contactModal && openBtn && closeBtn && contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    // Override email supaya tetap email kamu
+    const emailInput = contactForm.querySelector('input[type="email"]');
+    if (emailInput) {
+      emailInput.value = 'kelvianov10@gmail.com';
+    }
+
     contactFormFeedback.textContent = '';
     let isValid = true;
 
@@ -210,14 +224,12 @@ if (contactModal && openBtn && closeBtn && contactForm) {
     });
 
     if (isValid) {
-      // Putar suara terlebih dahulu — ini dianggap valid oleh browser
       const audio = new Audio("https://www.soundjay.com/buttons/sounds/button-4.mp3");
       audio.volume = 0.4;
       audio.play().catch((err) => {
         console.warn("Suara tidak bisa diputar:", err);
       });
 
-      // Kirim data ke Formspree
       const formData = new FormData(contactForm);
       fetch(contactForm.action, {
         method: "POST",
@@ -228,15 +240,14 @@ if (contactModal && openBtn && closeBtn && contactForm) {
       })
       .then(response => {
         if (response.ok) {
-          // Lalu munculkan Swal popup
           Swal.fire({
             title: 'Message Sent!',
             text: 'Thanks for contacting me! I will get back to you soon.',
             icon: 'success',
             confirmButtonText: 'OK',
-            background: '#f5f5f5', // abu muda
-            color: '#333', // teks abu gelap
-            iconColor: '#333', // tetap pakai warna aksen hijau
+            background: '#f5f5f5',
+            color: '#333',
+            iconColor: '#333',
             showClass: {
               popup: 'swal2-show animate__animated animate__fadeInDown'
             },
@@ -256,8 +267,12 @@ if (contactModal && openBtn && closeBtn && contactForm) {
       .catch(() => {
         Swal.fire('Oops!', 'Terjadi kesalahan jaringan.', 'error');
       });
+
+
     }//jangan di hapus
   });//jangan di hapus
 }//jangan di hapus
 
 }); // end DOMContentLoaded
+
+
