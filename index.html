@@ -249,55 +249,60 @@
         <i class="ph-bold ph-arrow-bend-right-down"></i>
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script>
-particlesJS("particles-js", {
-  particles: {
-    number: { 
-      value: 400,
-      density: {
+  function getParticleCount() {
+    return window.innerWidth <= 768 ? 250: 400; // 100 di mobile, 400 di desktop
+  }
+
+  particlesJS("particles-js", {
+    particles: {
+      number: { 
+        value: getParticleCount(),
+        density: {
+          enable: true,
+          value_area: 800
+        }
+      },
+      color: {
+        value: "#1e1e24"
+      },
+      shape: {
+        type: "circle",
+      },
+      opacity: {
+        value: 0.3,
+        random: true,
+      },
+      size: {
+        value: 4,
+        random: true,
+      },
+      move: {
         enable: true,
-        value_area: 800
+        speed: 1
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#1e1e24",
+        opacity: 0.4,
+        width: 1
       }
     },
-    color: {
-      value: "#1e1e24"
-    },
-    shape: {
-      type: "circle",
-    },
-    opacity: {
-      value: 0.3,
-      random: true,
-    },
-    size: {
-      value: 4,
-      random: true,
-    },
-    move: {
-      enable: true,
-      speed: 1
-    },
-    line_linked: {
-      enable: true,
-      distance: 150,
-      color: "#1e1e24",
-      opacity: 0.4,
-      width: 1
-    }
-  },
-  interactivity: {
-    detect_on: "canvas",
-    events: {
-      onhover: {
-        enable: true,
-        mode: "grab"
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "grab"
+        }
       }
-    }
-  },
-  retina_detect: true
-});
+    },
+    retina_detect: true
+  });
 </script>
+
 
     
     
